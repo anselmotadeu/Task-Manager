@@ -5,20 +5,20 @@
   text-align: center;
 }
 
-h1 {
+.h1 {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
 .task-form {
   text-align: center;
-  position: relative; /* Adicionado */
+  position: relative;
 }
 
 .task-form input {
   padding: 8px;
   width: 70%;
-  margin-right: 10px;
+  margin-right: 115px;
 }
 
 .task-form button {
@@ -77,14 +77,14 @@ h1 {
   color: red;
   margin-top: 5px;
   font-size: 14px;
-  text-align: center;
+  text-align: left;
 }
 
 .success-message {
   color: green;
   margin-top: 5px;
   font-size: 14px;
-  text-align: center;
+  text-align: left;
 }
 
 .hidden {

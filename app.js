@@ -17,7 +17,12 @@ taskForm.addEventListener('submit', function(e) {
   const taskHours = taskHoursInput.value.trim();
 
   if (taskTitle === '') {
-    displayErrorMessage('O preenchimento do título é obrigatório para adicionar uma tarefa');
+    displayErrorMessage('O preenchimento do título é obrigatório para adicionar uma tarefa', taskInput);
+    return;
+  }
+
+  if (taskHours === '') {
+    displayErrorMessage('O preenchimento do tempo é obrigatório para adicionar uma tarefa', taskHoursInput);
     return;
   }
 
@@ -29,21 +34,40 @@ taskForm.addEventListener('submit', function(e) {
 });
 
 // Função para exibir mensagem de erro
-function displayErrorMessage(message) {
+function displayErrorMessage(message, field) {
   const errorElement = document.createElement('p');
   errorElement.classList.add('error-message');
   errorElement.style.fontWeight = 'bold';
   errorElement.textContent = message;
 
-  const existingErrorElement = taskForm.querySelector('.error-message');
+  const existingErrorElement = field.parentElement.querySelector('.error-message');
   if (existingErrorElement) {
     existingErrorElement.remove();
   }
 
-  taskForm.insertBefore(errorElement, taskInput.nextSibling);
+  field.parentElement.insertBefore(errorElement, field.nextSibling);
 
   setTimeout(function() {
     errorElement.remove();
+  }, 3000);
+}
+
+// Função para exibir mensagem de sucesso
+function displaySuccessMessage(message) {
+  const successElement = document.createElement('p');
+  successElement.classList.add('success-message');
+  successElement.style.fontWeight = 'bold';
+  successElement.textContent = message;
+
+  const existingSuccessElement = taskForm.querySelector('.success-message');
+  if (existingSuccessElement) {
+    existingSuccessElement.remove();
+  }
+
+  taskForm.insertBefore(successElement, taskInput.nextSibling);
+
+  setTimeout(function() {
+    successElement.remove();
   }, 3000);
 }
 
@@ -94,6 +118,41 @@ completedTasksButton.addEventListener('click', function() {
 activeTasksButton.addEventListener('click', function() {
   showActiveTasks();
 });
+
+// Função para mostrar todas as tarefas
+function showAllTasks() {
+  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
+    taskItem.style.display = 'flex';
+  });
+}
+
+// Função para mostrar apenas as tarefas concluídas
+function showCompletedTasks() {
+  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
+    const taskId = taskItem.getAttribute('data-task-id');
+    const taskIndex = findTaskIndex(taskId);
+
+    if (taskIndex !== -1 && tasks[taskIndex].completed) {
+      taskItem.style.display = 'flex';
+    } else {
+      taskItem.style.display = 'none';
+    }
+  });
+}
+
+// Função para mostrar apenas as tarefas ativas (não concluídas)
+function showActiveTasks() {
+  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
+    const taskId = taskItem.getAttribute('data-task-id');
+    const taskIndex = findTaskIndex(taskId);
+
+    if (taskIndex !== -1 && !tasks[taskIndex].completed) {
+      taskItem.style.display = 'flex';
+    } else {
+      taskItem.style.display = 'none';
+    }
+  });
+}
 
 // Função para adicionar uma nova tarefa à lista
 function addTask(title, hours) {
@@ -167,41 +226,6 @@ function editTask(taskId) {
   }
 }
 
-// Função para mostrar todas as tarefas
-function showAllTasks() {
-  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
-    taskItem.style.display = 'flex';
-  });
-}
-
-// Função para mostrar apenas as tarefas concluídas
-function showCompletedTasks() {
-  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
-    const taskId = taskItem.getAttribute('data-task-id');
-    const taskIndex = findTaskIndex(taskId);
-
-    if (taskIndex !== -1 && tasks[taskIndex].completed) {
-      taskItem.style.display = 'flex';
-    } else {
-      taskItem.style.display = 'none';
-    }
-  });
-}
-
-// Função para mostrar apenas as tarefas ativas (não concluídas)
-function showActiveTasks() {
-  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
-    const taskId = taskItem.getAttribute('data-task-id');
-    const taskIndex = findTaskIndex(taskId);
-
-    if (taskIndex !== -1 && !tasks[taskIndex].completed) {
-      taskItem.style.display = 'flex';
-    } else {
-      taskItem.style.display = 'none';
-    }
-  });
-}
-
 // Função para encontrar o índice de uma tarefa no array de tarefas
 function findTaskIndex(taskId) {
   return tasks.findIndex(function(task) {
@@ -266,6 +290,63 @@ function loadTasks() {
 
 // Função para adicionar uma tarefa ao DOM
 function addTaskToDOM(taskId, title, hours, completed) {
+  taskList.addEventListener('click', function(event) {
+    if (event.target.classList.contains('task-checkbox')) {
+      updateFilter();
+    }
+  });
+
+  // Substitua a função `updateFilter` pelo código abaixo
+
+function updateFilter() {
+  const filterOption = filterSelect.value;
+
+  if (filterOption === 'all') {
+    showAllTasks();
+  } else if (filterOption === 'completed') {
+    showCompletedTasks();
+  } else if (filterOption === 'active') {
+    showActiveTasks();
+  }
+}
+
+// Adicione essas funções abaixo da função `updateFilter`
+
+// Função para mostrar todas as tarefas
+function showAllTasks() {
+  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
+    taskItem.style.display = 'flex';
+  });
+}
+
+// Função para mostrar apenas as tarefas concluídas
+function showCompletedTasks() {
+  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
+    const taskId = taskItem.getAttribute('data-task-id');
+    const taskIndex = findTaskIndex(taskId);
+
+    if (taskIndex !== -1 && tasks[taskIndex].completed) {
+      taskItem.style.display = 'flex';
+    } else {
+      taskItem.style.display = 'none';
+    }
+  });
+}
+
+// Função para mostrar apenas as tarefas ativas (não concluídas)
+function showActiveTasks() {
+  taskList.querySelectorAll('.task-item').forEach(function(taskItem) {
+    const taskId = taskItem.getAttribute('data-task-id');
+    const taskIndex = findTaskIndex(taskId);
+
+    if (taskIndex !== -1 && !tasks[taskIndex].completed) {
+      taskItem.style.display = 'flex';
+    } else {
+      taskItem.style.display = 'none';
+    }
+  });
+}
+
   const taskItem = document.createElement('li');
   taskItem.classList.add('task-item');
   taskItem.setAttribute('data-task-id', taskId);
