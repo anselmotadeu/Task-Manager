@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Tarefas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Minhas Tarefas</h1>
+    <form class="task-form">
+      <input type="text" id="task-input" placeholder="Adicione uma tarefa...">
+      <input type="number" id="task-hours" placeholder="Horas estimadas">
+      <button type="submit">Adicionar</button>
+    </form>
+    <div class="filter-buttons">
+      <button id="all-tasks">Todas</button>
+      <button id="completed-tasks">Concluídas</button>
+      <button id="active-tasks">Ativas</button>
+    </div>
+    <ul id="task-list" class="task-list"></ul>
+  </div>
+  <div class="policy-button-container">
+    <button onclick="window.location.href='policyPrivacy.html'" class="policy-button">Políticas de Privacidade</button>
+  </div>  
+  <div class="footer align-center">
+    <p></p>
+  <footer>&copy; 2023 Gerenciador de Tarefas. Todos os direitos reservados.</footer></div>
+  <script src="app.js"></script>
+</body>
+</html>

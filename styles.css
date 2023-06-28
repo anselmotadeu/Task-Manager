@@ -1,0 +1,151 @@
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.task-form {
+  text-align: center;
+  position: relative; /* Adicionado */
+}
+
+.task-form input {
+  padding: 8px;
+  width: 70%;
+  margin-right: 10px;
+}
+
+.task-form button {
+  padding: 8px 20px;
+}
+
+.filter-buttons {
+  margin: 20px 0;
+}
+
+.filter-buttons button {
+  margin-right: 5px;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.task-checkbox {
+  margin-right: 10px;
+}
+
+.edit-task,
+.delete-task {
+  border: none;
+  background: none;
+  color: blue;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.edit-task i {
+  color: blue;
+}
+
+.delete-task i {
+  color: red;
+}
+
+.task-time {
+  color: gray;
+  font-size: 14px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success-message {
+  color: green;
+  margin-top: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.align-center {
+  position: center;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.policy-button-container {
+  text-align: center;
+  position: center;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .policy-button-container {
+    bottom: 40px;
+  }
+}
+
+.policy-button {
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  color: #000;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.task-form input[type="number"] {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.task-item .task-name {
+  margin-right: 10px;
+}
+
+.task-item .task-hours {
+  font-weight: bold;
+}
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
